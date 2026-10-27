@@ -199,6 +199,8 @@ SpvExecutionMode_ :: enum u32 {
     RoundingModeRTZ                     :: 4463;
     NonCoherentTileAttachmentReadQCOM   :: 4489;
     TileShadingRateQCOM                 :: 4490;
+    SubgroupSizeHalfQCOM                :: 4507;
+    SubgroupSizeFullQCOM                :: 4508;
     EarlyAndLateFragmentTestsAMD        :: 5017;
     StencilRefReplacingEXT              :: 5027;
     CoalescingAMDX                      :: 5069;
@@ -305,6 +307,8 @@ SpvExecutionMode_ :: enum u32 {
     SpvExecutionModeRoundingModeRTZ                     :: RoundingModeRTZ;
     SpvExecutionModeNonCoherentTileAttachmentReadQCOM   :: NonCoherentTileAttachmentReadQCOM;
     SpvExecutionModeTileShadingRateQCOM                 :: TileShadingRateQCOM;
+    SpvExecutionModeSubgroupSizeHalfQCOM                :: SubgroupSizeHalfQCOM;
+    SpvExecutionModeSubgroupSizeFullQCOM                :: SubgroupSizeFullQCOM;
     SpvExecutionModeEarlyAndLateFragmentTestsAMD        :: EarlyAndLateFragmentTestsAMD;
     SpvExecutionModeStencilRefReplacingEXT              :: StencilRefReplacingEXT;
     SpvExecutionModeCoalescingAMDX                      :: CoalescingAMDX;
@@ -1018,6 +1022,7 @@ SpvDecoration_ :: enum u32 {
     BindlessImageNV                             :: 5399;
     BoundSamplerNV                              :: 5400;
     BoundImageNV                                :: 5401;
+    CooperativeMatrixTransposeEXT               :: 5440;
     SIMTCallINTEL                               :: 5599;
     ReferencedIndirectlyINTEL                   :: 5602;
     ClobberINTEL                                :: 5607;
@@ -1127,6 +1132,7 @@ SpvDecoration_ :: enum u32 {
     ConditionalINTEL                            :: 6247;
     CacheControlLoadINTEL                       :: 6442;
     CacheControlStoreINTEL                      :: 6443;
+    IntrinsicSAMSUNG                            :: 7040;
     Max                                         :: 2147483647;
 
     SpvDecorationRelaxedPrecision                            :: RelaxedPrecision;
@@ -1218,6 +1224,7 @@ SpvDecoration_ :: enum u32 {
     SpvDecorationBindlessImageNV                             :: BindlessImageNV;
     SpvDecorationBoundSamplerNV                              :: BoundSamplerNV;
     SpvDecorationBoundImageNV                                :: BoundImageNV;
+    SpvDecorationCooperativeMatrixTransposeEXT               :: CooperativeMatrixTransposeEXT;
     SpvDecorationSIMTCallINTEL                               :: SIMTCallINTEL;
     SpvDecorationReferencedIndirectlyINTEL                   :: ReferencedIndirectlyINTEL;
     SpvDecorationClobberINTEL                                :: ClobberINTEL;
@@ -1327,6 +1334,7 @@ SpvDecoration_ :: enum u32 {
     SpvDecorationConditionalINTEL                            :: ConditionalINTEL;
     SpvDecorationCacheControlLoadINTEL                       :: CacheControlLoadINTEL;
     SpvDecorationCacheControlStoreINTEL                      :: CacheControlStoreINTEL;
+    SpvDecorationIntrinsicSAMSUNG                            :: IntrinsicSAMSUNG;
     SpvDecorationMax                                         :: Max;
 }
 
@@ -1483,6 +1491,7 @@ SpvBuiltIn_ :: enum u32 {
     HitLSSRadiiNV                        :: 5421;
     ClusterIDNV                          :: 5436;
     CullMaskKHR                          :: 6021;
+    DeviceBarrierValidINTEL              :: 6186;
     Max                                  :: 2147483647;
 
     SpvBuiltInPosition                             :: Position;
@@ -1635,6 +1644,7 @@ SpvBuiltIn_ :: enum u32 {
     SpvBuiltInHitLSSRadiiNV                        :: HitLSSRadiiNV;
     SpvBuiltInClusterIDNV                          :: ClusterIDNV;
     SpvBuiltInCullMaskKHR                          :: CullMaskKHR;
+    SpvBuiltInDeviceBarrierValidINTEL              :: DeviceBarrierValidINTEL;
     SpvBuiltInMax                                  :: Max;
 }
 
@@ -1694,6 +1704,7 @@ SpvLoopControlShift_ :: enum u32 {
     LoopCountINTELShift             :: 24;
     MaxReinvocationDelayALTERAShift :: 25;
     MaxReinvocationDelayINTELShift  :: 25;
+    MultipleWaitQueuesQCOMShift     :: 28;
     Max                             :: 2147483647;
 
     SpvLoopControlUnrollShift                     :: UnrollShift;
@@ -1725,6 +1736,7 @@ SpvLoopControlShift_ :: enum u32 {
     SpvLoopControlLoopCountINTELShift             :: LoopCountINTELShift;
     SpvLoopControlMaxReinvocationDelayALTERAShift :: MaxReinvocationDelayALTERAShift;
     SpvLoopControlMaxReinvocationDelayINTELShift  :: MaxReinvocationDelayINTELShift;
+    SpvLoopControlMultipleWaitQueuesQCOMShift     :: MultipleWaitQueuesQCOMShift;
     SpvLoopControlMax                             :: Max;
 }
 
@@ -1761,6 +1773,7 @@ SpvLoopControlMask_ :: enum u32 {
     LoopCountINTELMask             :: 16777216;
     MaxReinvocationDelayALTERAMask :: 33554432;
     MaxReinvocationDelayINTELMask  :: 33554432;
+    MultipleWaitQueuesQCOMMask     :: 268435456;
 
     SpvLoopControlMaskNone                       :: MaskNone;
     SpvLoopControlUnrollMask                     :: UnrollMask;
@@ -1792,6 +1805,7 @@ SpvLoopControlMask_ :: enum u32 {
     SpvLoopControlLoopCountINTELMask             :: LoopCountINTELMask;
     SpvLoopControlMaxReinvocationDelayALTERAMask :: MaxReinvocationDelayALTERAMask;
     SpvLoopControlMaxReinvocationDelayINTELMask  :: MaxReinvocationDelayINTELMask;
+    SpvLoopControlMultipleWaitQueuesQCOMMask     :: MultipleWaitQueuesQCOMMask;
 }
 
 SpvLoopControlMask :: SpvLoopControlMask_;
@@ -2148,6 +2162,11 @@ SpvCapability_ :: enum u32 {
     CooperativeMatrixLayoutsARM                  :: 4201;
     Float8EXT                                    :: 4212;
     Float8CooperativeMatrixEXT                   :: 4213;
+    Float6EXT                                    :: 4228;
+    Float4EXT                                    :: 4229;
+    Float8UnsignedE8M0EXT                        :: 4230;
+    MXInt8EXT                                    :: 4231;
+    BitcastExtractEXT                            :: 4232;
     FragmentShadingRateKHR                       :: 4422;
     SubgroupBallotKHR                            :: 4423;
     DrawParameters                               :: 4427;
@@ -2186,6 +2205,11 @@ SpvCapability_ :: enum u32 {
     TileShadingQCOM                              :: 4495;
     CooperativeMatrixConversionQCOM              :: 4496;
     TextureBlockMatch2QCOM                       :: 4498;
+    BFloat16MulAddQCOM                           :: 4504;
+    SubgroupSizeQCOM                             :: 4506;
+    MultipleWaitQueuesQCOM                       :: 4539;
+    ImageGatherLinearQCOM                        :: 4543;
+    ImageGatherExtendedModesQCOM                 :: 4544;
     Float16ImageAMD                              :: 5008;
     ImageGatherBiasLodAMD                        :: 5009;
     FragmentMaskAMD                              :: 5010;
@@ -2283,13 +2307,17 @@ SpvCapability_ :: enum u32 {
     PushConstantBanksNV                          :: 5423;
     LongVectorEXT                                :: 5425;
     Shader64BitIndexingEXT                       :: 5426;
+    CooperativeMatrixConversionsEXT              :: 5429;
+    CooperativeMatrixReductionsEXT               :: 5430;
     CooperativeMatrixReductionsNV                :: 5430;
     CooperativeMatrixConversionsNV               :: 5431;
+    CooperativeMatrixPerElementOperationsEXT     :: 5432;
     CooperativeMatrixPerElementOperationsNV      :: 5432;
     CooperativeMatrixTensorAddressingNV          :: 5433;
     CooperativeMatrixBlockLoadsNV                :: 5434;
     CooperativeVectorTrainingNV                  :: 5435;
     RayTracingClusterAccelerationStructureNV     :: 5437;
+    CooperativeMatrixGetCoordinateEXT            :: 5438;
     TensorAddressingNV                           :: 5439;
     CooperativeMatrixDecodeVectorNV              :: 5447;
     SubgroupShuffleINTEL                         :: 5568;
@@ -2387,9 +2415,11 @@ SpvCapability_ :: enum u32 {
     FPGALatencyControlINTEL                      :: 6171;
     FPGAArgumentInterfacesALTERA                 :: 6174;
     FPGAArgumentInterfacesINTEL                  :: 6174;
+    DeviceBarrierINTEL                           :: 6185;
     GlobalVariableHostAccessINTEL                :: 6187;
     GlobalVariableFPGADecorationsALTERA          :: 6189;
     GlobalVariableFPGADecorationsINTEL           :: 6189;
+    SubgroupBitcastShuffleINTEL                  :: 6207;
     SubgroupBufferPrefetchINTEL                  :: 6220;
     Subgroup2DBlockIOINTEL                       :: 6228;
     Subgroup2DBlockTransformINTEL                :: 6229;
@@ -2411,6 +2441,7 @@ SpvCapability_ :: enum u32 {
     DotProductFloat16AccFloat16VALVE             :: 6913;
     DotProductBFloat16AccVALVE                   :: 6914;
     DotProductFloat8AccFloat32VALVE              :: 6915;
+    IntrinsicSAMSUNG                             :: 7041;
     Max                                          :: 2147483647;
 
     SpvCapabilityMatrix                                       :: Matrix;
@@ -2494,6 +2525,11 @@ SpvCapability_ :: enum u32 {
     SpvCapabilityCooperativeMatrixLayoutsARM                  :: CooperativeMatrixLayoutsARM;
     SpvCapabilityFloat8EXT                                    :: Float8EXT;
     SpvCapabilityFloat8CooperativeMatrixEXT                   :: Float8CooperativeMatrixEXT;
+    SpvCapabilityFloat6EXT                                    :: Float6EXT;
+    SpvCapabilityFloat4EXT                                    :: Float4EXT;
+    SpvCapabilityFloat8UnsignedE8M0EXT                        :: Float8UnsignedE8M0EXT;
+    SpvCapabilityMXInt8EXT                                    :: MXInt8EXT;
+    SpvCapabilityBitcastExtractEXT                            :: BitcastExtractEXT;
     SpvCapabilityFragmentShadingRateKHR                       :: FragmentShadingRateKHR;
     SpvCapabilitySubgroupBallotKHR                            :: SubgroupBallotKHR;
     SpvCapabilityDrawParameters                               :: DrawParameters;
@@ -2532,6 +2568,11 @@ SpvCapability_ :: enum u32 {
     SpvCapabilityTileShadingQCOM                              :: TileShadingQCOM;
     SpvCapabilityCooperativeMatrixConversionQCOM              :: CooperativeMatrixConversionQCOM;
     SpvCapabilityTextureBlockMatch2QCOM                       :: TextureBlockMatch2QCOM;
+    SpvCapabilityBFloat16MulAddQCOM                           :: BFloat16MulAddQCOM;
+    SpvCapabilitySubgroupSizeQCOM                             :: SubgroupSizeQCOM;
+    SpvCapabilityMultipleWaitQueuesQCOM                       :: MultipleWaitQueuesQCOM;
+    SpvCapabilityImageGatherLinearQCOM                        :: ImageGatherLinearQCOM;
+    SpvCapabilityImageGatherExtendedModesQCOM                 :: ImageGatherExtendedModesQCOM;
     SpvCapabilityFloat16ImageAMD                              :: Float16ImageAMD;
     SpvCapabilityImageGatherBiasLodAMD                        :: ImageGatherBiasLodAMD;
     SpvCapabilityFragmentMaskAMD                              :: FragmentMaskAMD;
@@ -2629,13 +2670,17 @@ SpvCapability_ :: enum u32 {
     SpvCapabilityPushConstantBanksNV                          :: PushConstantBanksNV;
     SpvCapabilityLongVectorEXT                                :: LongVectorEXT;
     SpvCapabilityShader64BitIndexingEXT                       :: Shader64BitIndexingEXT;
+    SpvCapabilityCooperativeMatrixConversionsEXT              :: CooperativeMatrixConversionsEXT;
+    SpvCapabilityCooperativeMatrixReductionsEXT               :: CooperativeMatrixReductionsEXT;
     SpvCapabilityCooperativeMatrixReductionsNV                :: CooperativeMatrixReductionsNV;
     SpvCapabilityCooperativeMatrixConversionsNV               :: CooperativeMatrixConversionsNV;
+    SpvCapabilityCooperativeMatrixPerElementOperationsEXT     :: CooperativeMatrixPerElementOperationsEXT;
     SpvCapabilityCooperativeMatrixPerElementOperationsNV      :: CooperativeMatrixPerElementOperationsNV;
     SpvCapabilityCooperativeMatrixTensorAddressingNV          :: CooperativeMatrixTensorAddressingNV;
     SpvCapabilityCooperativeMatrixBlockLoadsNV                :: CooperativeMatrixBlockLoadsNV;
     SpvCapabilityCooperativeVectorTrainingNV                  :: CooperativeVectorTrainingNV;
     SpvCapabilityRayTracingClusterAccelerationStructureNV     :: RayTracingClusterAccelerationStructureNV;
+    SpvCapabilityCooperativeMatrixGetCoordinateEXT            :: CooperativeMatrixGetCoordinateEXT;
     SpvCapabilityTensorAddressingNV                           :: TensorAddressingNV;
     SpvCapabilityCooperativeMatrixDecodeVectorNV              :: CooperativeMatrixDecodeVectorNV;
     SpvCapabilitySubgroupShuffleINTEL                         :: SubgroupShuffleINTEL;
@@ -2733,9 +2778,11 @@ SpvCapability_ :: enum u32 {
     SpvCapabilityFPGALatencyControlINTEL                      :: FPGALatencyControlINTEL;
     SpvCapabilityFPGAArgumentInterfacesALTERA                 :: FPGAArgumentInterfacesALTERA;
     SpvCapabilityFPGAArgumentInterfacesINTEL                  :: FPGAArgumentInterfacesINTEL;
+    SpvCapabilityDeviceBarrierINTEL                           :: DeviceBarrierINTEL;
     SpvCapabilityGlobalVariableHostAccessINTEL                :: GlobalVariableHostAccessINTEL;
     SpvCapabilityGlobalVariableFPGADecorationsALTERA          :: GlobalVariableFPGADecorationsALTERA;
     SpvCapabilityGlobalVariableFPGADecorationsINTEL           :: GlobalVariableFPGADecorationsINTEL;
+    SpvCapabilitySubgroupBitcastShuffleINTEL                  :: SubgroupBitcastShuffleINTEL;
     SpvCapabilitySubgroupBufferPrefetchINTEL                  :: SubgroupBufferPrefetchINTEL;
     SpvCapabilitySubgroup2DBlockIOINTEL                       :: Subgroup2DBlockIOINTEL;
     SpvCapabilitySubgroup2DBlockTransformINTEL                :: Subgroup2DBlockTransformINTEL;
@@ -2757,6 +2804,7 @@ SpvCapability_ :: enum u32 {
     SpvCapabilityDotProductFloat16AccFloat16VALVE             :: DotProductFloat16AccFloat16VALVE;
     SpvCapabilityDotProductBFloat16AccVALVE                   :: DotProductBFloat16AccVALVE;
     SpvCapabilityDotProductFloat8AccFloat32VALVE              :: DotProductFloat8AccFloat32VALVE;
+    SpvCapabilityIntrinsicSAMSUNG                             :: IntrinsicSAMSUNG;
     SpvCapabilityMax                                          :: Max;
 }
 
@@ -3325,15 +3373,25 @@ SpvRawAccessChainOperandsMask_ :: enum u32 {
 SpvRawAccessChainOperandsMask :: SpvRawAccessChainOperandsMask_;
 
 SpvFPEncoding_ :: enum u32 {
-    BFloat16KHR   :: 0;
-    Float8E4M3EXT :: 4214;
-    Float8E5M2EXT :: 4215;
-    Max           :: 2147483647;
+    BFloat16KHR           :: 0;
+    Float8E4M3EXT         :: 4214;
+    Float8E5M2EXT         :: 4215;
+    Float6E2M3EXT         :: 4223;
+    Float6E3M2EXT         :: 4224;
+    Float4E2M1EXT         :: 4225;
+    Float8UnsignedE8M0EXT :: 4226;
+    MXInt8EXT             :: 4227;
+    Max                   :: 2147483647;
 
-    SpvFPEncodingBFloat16KHR   :: BFloat16KHR;
-    SpvFPEncodingFloat8E4M3EXT :: Float8E4M3EXT;
-    SpvFPEncodingFloat8E5M2EXT :: Float8E5M2EXT;
-    SpvFPEncodingMax           :: Max;
+    SpvFPEncodingBFloat16KHR           :: BFloat16KHR;
+    SpvFPEncodingFloat8E4M3EXT         :: Float8E4M3EXT;
+    SpvFPEncodingFloat8E5M2EXT         :: Float8E5M2EXT;
+    SpvFPEncodingFloat6E2M3EXT         :: Float6E2M3EXT;
+    SpvFPEncodingFloat6E3M2EXT         :: Float6E3M2EXT;
+    SpvFPEncodingFloat4E2M1EXT         :: Float4E2M1EXT;
+    SpvFPEncodingFloat8UnsignedE8M0EXT :: Float8UnsignedE8M0EXT;
+    SpvFPEncodingMXInt8EXT             :: MXInt8EXT;
+    SpvFPEncodingMax                   :: Max;
 }
 
 SpvFPEncoding :: SpvFPEncoding_;
@@ -3391,6 +3449,22 @@ SpvComponentType_ :: enum u32 {
 }
 
 SpvComponentType :: SpvComponentType_;
+
+SpvGatherModes_ :: enum u32 {
+    Gather4x1QCOM :: 0;
+    GatherDQCOM   :: 1;
+    GatherH2QCOM  :: 2;
+    GatherV2QCOM  :: 3;
+    Max           :: 2147483647;
+
+    SpvGatherModesGather4x1QCOM :: Gather4x1QCOM;
+    SpvGatherModesGatherDQCOM   :: GatherDQCOM;
+    SpvGatherModesGatherH2QCOM  :: GatherH2QCOM;
+    SpvGatherModesGatherV2QCOM  :: GatherV2QCOM;
+    SpvGatherModesMax           :: Max;
+}
+
+SpvGatherModes :: SpvGatherModes_;
 
 SpvOp_ :: enum u32 {
     Nop                                                                   :: 0;
@@ -3751,6 +3825,7 @@ SpvOp_ :: enum u32 {
     GraphSetOutputARM                                                     :: 4185;
     GraphEndARM                                                           :: 4186;
     TypeGraphARM                                                          :: 4190;
+    BitcastExtractEXT                                                     :: 4195;
     TerminateInvocation                                                   :: 4416;
     TypeUntypedPointerKHR                                                 :: 4417;
     UntypedVariableKHR                                                    :: 4418;
@@ -3811,9 +3886,11 @@ SpvOp_ :: enum u32 {
     ImageBlockMatchWindowSADQCOM                                          :: 4501;
     ImageBlockMatchGatherSSDQCOM                                          :: 4502;
     ImageBlockMatchGatherSADQCOM                                          :: 4503;
+    BFloat16MulAddQCOM                                                    :: 4505;
     CompositeConstructCoopMatQCOM                                         :: 4540;
     CompositeExtractCoopMatQCOM                                           :: 4541;
     ExtractSubArrayQCOM                                                   :: 4542;
+    ImageGatherQCOM                                                       :: 4545;
     GroupIAddNonUniformAMD                                                :: 5000;
     GroupFAddNonUniformAMD                                                :: 5001;
     GroupFMinNonUniformAMD                                                :: 5002;
@@ -3886,6 +3963,7 @@ SpvOp_ :: enum u32 {
     CooperativeVectorReduceSumAccumulateNV                                :: 5291;
     CooperativeVectorMatrixMulAddNV                                       :: 5292;
     CooperativeMatrixConvertNV                                            :: 5293;
+    CooperativeMatrixConvertUseEXT                                        :: 5293;
     EmitMeshTasksEXT                                                      :: 5294;
     SetMeshOutputsEXT                                                     :: 5295;
     GroupNonUniformPartitionEXT                                           :: 5296;
@@ -3950,11 +4028,14 @@ SpvOp_ :: enum u32 {
     CooperativeMatrixStoreNV                                              :: 5360;
     CooperativeMatrixMulAddNV                                             :: 5361;
     CooperativeMatrixLengthNV                                             :: 5362;
+    CooperativeMatrixGetCoordinateEXT                                     :: 5363;
     BeginInvocationInterlockEXT                                           :: 5364;
     EndInvocationInterlockEXT                                             :: 5365;
+    CooperativeMatrixReduceEXT                                            :: 5366;
     CooperativeMatrixReduceNV                                             :: 5366;
     CooperativeMatrixLoadTensorNV                                         :: 5367;
     CooperativeMatrixStoreTensorNV                                        :: 5368;
+    CooperativeMatrixPerElementOpEXT                                      :: 5369;
     CooperativeMatrixPerElementOpNV                                       :: 5369;
     TypeTensorLayoutNV                                                    :: 5370;
     TypeTensorViewNV                                                      :: 5371;
@@ -4286,6 +4367,7 @@ SpvOp_ :: enum u32 {
     TaskSequenceReleaseINTEL                                              :: 6166;
     TypeTaskSequenceALTERA                                                :: 6199;
     TypeTaskSequenceINTEL                                                 :: 6199;
+    SubgroupBitcastShuffleINTEL                                           :: 6208;
     SubgroupBlockPrefetchINTEL                                            :: 6221;
     Subgroup2DBlockLoadINTEL                                              :: 6231;
     Subgroup2DBlockLoadTransformINTEL                                     :: 6232;
@@ -4681,6 +4763,7 @@ SpvOp_ :: enum u32 {
     SpvOpGraphSetOutputARM                                                     :: GraphSetOutputARM;
     SpvOpGraphEndARM                                                           :: GraphEndARM;
     SpvOpTypeGraphARM                                                          :: TypeGraphARM;
+    SpvOpBitcastExtractEXT                                                     :: BitcastExtractEXT;
     SpvOpTerminateInvocation                                                   :: TerminateInvocation;
     SpvOpTypeUntypedPointerKHR                                                 :: TypeUntypedPointerKHR;
     SpvOpUntypedVariableKHR                                                    :: UntypedVariableKHR;
@@ -4741,9 +4824,11 @@ SpvOp_ :: enum u32 {
     SpvOpImageBlockMatchWindowSADQCOM                                          :: ImageBlockMatchWindowSADQCOM;
     SpvOpImageBlockMatchGatherSSDQCOM                                          :: ImageBlockMatchGatherSSDQCOM;
     SpvOpImageBlockMatchGatherSADQCOM                                          :: ImageBlockMatchGatherSADQCOM;
+    SpvOpBFloat16MulAddQCOM                                                    :: BFloat16MulAddQCOM;
     SpvOpCompositeConstructCoopMatQCOM                                         :: CompositeConstructCoopMatQCOM;
     SpvOpCompositeExtractCoopMatQCOM                                           :: CompositeExtractCoopMatQCOM;
     SpvOpExtractSubArrayQCOM                                                   :: ExtractSubArrayQCOM;
+    SpvOpImageGatherQCOM                                                       :: ImageGatherQCOM;
     SpvOpGroupIAddNonUniformAMD                                                :: GroupIAddNonUniformAMD;
     SpvOpGroupFAddNonUniformAMD                                                :: GroupFAddNonUniformAMD;
     SpvOpGroupFMinNonUniformAMD                                                :: GroupFMinNonUniformAMD;
@@ -4816,6 +4901,7 @@ SpvOp_ :: enum u32 {
     SpvOpCooperativeVectorReduceSumAccumulateNV                                :: CooperativeVectorReduceSumAccumulateNV;
     SpvOpCooperativeVectorMatrixMulAddNV                                       :: CooperativeVectorMatrixMulAddNV;
     SpvOpCooperativeMatrixConvertNV                                            :: CooperativeMatrixConvertNV;
+    SpvOpCooperativeMatrixConvertUseEXT                                        :: CooperativeMatrixConvertUseEXT;
     SpvOpEmitMeshTasksEXT                                                      :: EmitMeshTasksEXT;
     SpvOpSetMeshOutputsEXT                                                     :: SetMeshOutputsEXT;
     SpvOpGroupNonUniformPartitionEXT                                           :: GroupNonUniformPartitionEXT;
@@ -4880,11 +4966,14 @@ SpvOp_ :: enum u32 {
     SpvOpCooperativeMatrixStoreNV                                              :: CooperativeMatrixStoreNV;
     SpvOpCooperativeMatrixMulAddNV                                             :: CooperativeMatrixMulAddNV;
     SpvOpCooperativeMatrixLengthNV                                             :: CooperativeMatrixLengthNV;
+    SpvOpCooperativeMatrixGetCoordinateEXT                                     :: CooperativeMatrixGetCoordinateEXT;
     SpvOpBeginInvocationInterlockEXT                                           :: BeginInvocationInterlockEXT;
     SpvOpEndInvocationInterlockEXT                                             :: EndInvocationInterlockEXT;
+    SpvOpCooperativeMatrixReduceEXT                                            :: CooperativeMatrixReduceEXT;
     SpvOpCooperativeMatrixReduceNV                                             :: CooperativeMatrixReduceNV;
     SpvOpCooperativeMatrixLoadTensorNV                                         :: CooperativeMatrixLoadTensorNV;
     SpvOpCooperativeMatrixStoreTensorNV                                        :: CooperativeMatrixStoreTensorNV;
+    SpvOpCooperativeMatrixPerElementOpEXT                                      :: CooperativeMatrixPerElementOpEXT;
     SpvOpCooperativeMatrixPerElementOpNV                                       :: CooperativeMatrixPerElementOpNV;
     SpvOpTypeTensorLayoutNV                                                    :: TypeTensorLayoutNV;
     SpvOpTypeTensorViewNV                                                      :: TypeTensorViewNV;
@@ -5216,6 +5305,7 @@ SpvOp_ :: enum u32 {
     SpvOpTaskSequenceReleaseINTEL                                              :: TaskSequenceReleaseINTEL;
     SpvOpTypeTaskSequenceALTERA                                                :: TypeTaskSequenceALTERA;
     SpvOpTypeTaskSequenceINTEL                                                 :: TypeTaskSequenceINTEL;
+    SpvOpSubgroupBitcastShuffleINTEL                                           :: SubgroupBitcastShuffleINTEL;
     SpvOpSubgroupBlockPrefetchINTEL                                            :: SubgroupBlockPrefetchINTEL;
     SpvOpSubgroup2DBlockLoadINTEL                                              :: Subgroup2DBlockLoadINTEL;
     SpvOpSubgroup2DBlockLoadTransformINTEL                                     :: Subgroup2DBlockLoadTransformINTEL;
